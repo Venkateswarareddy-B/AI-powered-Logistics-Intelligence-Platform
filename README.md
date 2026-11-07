@@ -1,6 +1,5 @@
 # YottaFlex — AI-Powered Logistics Intelligence Platform
-
-> **Status: All 24 phases complete · 398 tests pass · Running locally**
+--------------------------------------------------------------------
 
 ---
 
