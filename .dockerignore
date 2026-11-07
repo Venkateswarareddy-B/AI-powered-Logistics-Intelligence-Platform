@@ -1,0 +1,17 @@
+.venv/
+node_modules/
+frontend/node_modules/
+frontend/dist/
+data/
+ml/models/
+ml/artifacts/
+*.pyc
+__pycache__/
+.env
+.git/
+.gitignore
+*.md
+docs/
+tests/
+scripts/_stop_pg.ps1
+.pg_stop_result.txt

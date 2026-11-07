@@ -1,0 +1,43 @@
+# ============================================================
+# YottaFlex - Render Blueprint (PLACEHOLDER)
+# ------------------------------------------------------------
+# Defines the Render web service for the FastAPI backend.
+# Finalised and verified in Phase 21 (Docker & Deployment).
+# Local development uses docker compose + native venv — no
+# Render account is needed to develop or test YottaFlex.
+# ============================================================
+services:
+  - type: web
+    name: yottaflex-backend
+    runtime: python
+    plan: free
+    rootDir: .
+    buildCommand: pip install -r requirements.txt
+    # Render injects $PORT. uvicorn binds to it.
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: ENV
+        value: production
+      - key: DEBUG
+        value: "false"
+      - key: PYTHON_VERSION
+        value: "3.12.10"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: APP_NAME
+        value: YottaFlex
+      - key: APP_TAGLINE
+        value: AI-Powered Logistics Intelligence Platform
+      # Set these in the Render dashboard — never commit real values:
+      - key: JWT_SECRET
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_ENABLED
+        value: "false"
+      - key: RAG_ENABLED
+        value: "false"

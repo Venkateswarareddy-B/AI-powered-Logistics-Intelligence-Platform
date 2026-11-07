@@ -1,0 +1,70 @@
+# ============================================================
+# AI-Powered Logistics Intelligence Platform - Python deps
+# ------------------------------------------------------------
+# These are the verified, pinned core backend dependencies for
+# Phase 1 (project setup). They have been installed and verified
+# against the local Python (3.14) interpreter.
+#
+# Additional dependency groups are added and pinned as each phase
+# lands, to keep versions honest and avoid installing unverified
+# packages:
+#   Phase  4 (data engineering): pandas, numpy, faker
+#   Phase 12 (ETA ML)          : scikit-learn, xgboost, joblib
+#   Phase 14 (explainable AI)  : shap
+#   Phase 16 (GenAI)           : groq, langchain, langchain-groq
+#   Phase 17 (RAG)             : chromadb, sentence-transformers, pypdf, python-docx
+#   Phase 18 (agents)          : langgraph
+#   Phase 22 (testing)         : pytest, pytest-asyncio, ruff
+#
+# Target Python: 3.12+ (code is kept 3.12-compatible so the Render
+# runtime can pin a stable 3.12.x release; see render.yaml).
+# ============================================================
+
+# --- Web framework & ASGI server ---
+fastapi==0.162.0
+uvicorn[standard]==0.54.0
+python-multipart==0.0.33          # multipart/form-data parsing (file uploads)
+
+# --- Settings & validation ---
+pydantic==2.14.3
+pydantic-settings==2.16.2
+
+# --- Database & migrations ---
+SQLAlchemy==2.1.8
+alembic==1.20.1
+psycopg[binary]==3.3.8           # PostgreSQL driver (psycopg3, async-capable)
+
+# --- Security / auth ---
+PyJWT==2.15.1                     # JWT encoding/decoding (HS256 needs no cryptography pkg)
+passlib[bcrypt]==1.7.4            # password hashing context
+bcrypt==4.3.0                     # pinned to 4.x; passlib 1.7.4 incompatible with bcrypt 5.x
+
+# --- HTTP client (tests + external integrations later) ---
+httpx==0.28.1
+
+# ============================================================
+# Phase 4 — data engineering
+# ============================================================
+pandas==3.1.1
+numpy==2.5.4
+Faker==40.44.0
+
+# ============================================================
+# Phase 12 — machine learning
+# ============================================================
+scikit-learn==1.9.1
+joblib==1.6.0
+shap==0.54.1
+
+# ============================================================
+# Phase 16 — GenAI (Groq)
+# ============================================================
+groq==1.7.0
+
+# ============================================================
+# Phase 17 — RAG (ChromaDB + local embeddings)
+# ============================================================
+chromadb==1.5.9
+sentence-transformers==6.2.0
+pypdf==7.0.0
+python-docx==1.2.0

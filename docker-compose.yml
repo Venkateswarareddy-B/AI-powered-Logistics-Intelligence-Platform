@@ -1,0 +1,103 @@
+# ============================================================
+# YottaFlex — Local Development Docker Compose
+# ------------------------------------------------------------
+# Full stack: PostgreSQL + Backend + Frontend + ChromaDB
+#
+# Start:    docker compose up --build -d
+# Status:   docker compose ps
+# Stop:     docker compose down
+# Reset DB: docker compose down -v
+#
+# URLs:
+#   Frontend:  http://localhost:5173  (or 3000 if port taken)
+#   Backend:   http://localhost:8000
+#   API docs:  http://localhost:8000/docs
+#   Postgres:  localhost:5434
+# ============================================================
+services:
+  postgres:
+    image: postgres:${POSTGRES_VERSION:-16}
+    container_name: yottaflex-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-logistics}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-logistics}
+      POSTGRES_DB: ${POSTGRES_DB:-logistics_ai}
+    ports:
+      - "${POSTGRES_HOST_PORT:-5434}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: yottaflex-chromadb
+    restart: unless-stopped
+    ports:
+      - "8001:8000"
+    volumes:
+      - chromadata:/chroma/chroma
+    environment:
+      IS_PERSISTENT: "TRUE"
+      ANONYMIZED_TELEMETRY: "FALSE"
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: yottaflex-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      APP_NAME: YottaFlex
+      APP_TAGLINE: "AI-Powered Logistics Intelligence Platform"
+      ENV: local
+      DEBUG: "false"
+      LOG_LEVEL: INFO
+      CORS_ORIGINS_STR: "http://localhost:5173,http://localhost:3000,http://localhost:80"
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: ${POSTGRES_USER:-logistics}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-logistics}
+      POSTGRES_DB: ${POSTGRES_DB:-logistics_ai}
+      JWT_SECRET: ${JWT_SECRET:-change-me-this-is-not-a-real-secret}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GROQ_ENABLED: ${GROQ_ENABLED:-false}
+      RAG_ENABLED: ${RAG_ENABLED:-false}
+      CHROMA_PERSIST_DIR: /app/data/chroma
+      RANDOM_SEED: 20261022
+    ports:
+      - "8000:8000"
+    volumes:
+      - mlmodels:/app/ml/models
+      - chromasync:/app/data/chroma
+
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    container_name: yottaflex-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+    environment:
+      VITE_API_URL: "http://localhost:8000"
+
+volumes:
+  pgdata:
+    name: yottaflex_pgdata
+  chromadata:
+    name: yottaflex_chromadata
+  mlmodels:
+    name: yottaflex_mlmodels
+  chromasync:
+    name: yottaflex_chromasync

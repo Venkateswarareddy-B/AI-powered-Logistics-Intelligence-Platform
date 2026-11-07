@@ -1,0 +1,90 @@
+# ===== Secrets / Env =====
+.env
+.env.*
+!.env.example
+*.local
+secrets/
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
+dmypy.json
+
+# ===== Node / Frontend =====
+node_modules/
+frontend/dist/
+frontend/node_modules/
+*.tsbuildinfo
+.npm
+.pnpm-store/
+.yarn/cache
+.yarn/install-state.gz
+
+# ===== Data / Generated artifacts =====
+data/
+data/demo/
+data/chroma/
+ml/models/
+ml/artifacts/
+ml/datasets/generated/
+*.joblib
+*.pkl
+*.sav
+*.h5
+ground_truth.json
+ground_truth.csv
+validation_summary.json
+
+# ===== Logs =====
+logs/
+*.log
+
+# ===== IDE / OS =====
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Docker =====
+docker-compose.override.yml
+
+# ===== Render / deploy tmp =====
+.render/

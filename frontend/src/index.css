@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #F4F7FF;
+    color: #172033;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar { width: 5px; height: 5px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+
+  /* Smooth card hover */
+  .card-hover {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -4px rgb(37 99 235 / 0.12), 0 4px 12px -2px rgb(0 0 0 / 0.06);
+  }
+
+  /* Sidebar gradient */
+  .sidebar-gradient {
+    background: linear-gradient(180deg, #0B1530 0%, #0f1729 50%, #0B1530 100%);
+  }
+
+  /* Active nav item gradient */
+  .nav-active {
+    background: linear-gradient(135deg, #2563EB 0%, #1d4ed8 100%);
+    box-shadow: 0 4px 12px -2px rgb(37 99 235 / 0.35);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #2563EB, #8B5CF6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Soft gradient backgrounds for KPI cards */
+  .grad-blue { background: linear-gradient(135deg, #2563EB 0%, #0ea5e9 100%); }
+  .grad-purple { background: linear-gradient(135deg, #8B5CF6 0%, #a78bfa 100%); }
+  .grad-green { background: linear-gradient(135deg, #10B981 0%, #34d399 100%); }
+  .grad-rose { background: linear-gradient(135deg, #F43F5E 0%, #fb7185 100%); }
+  .grad-amber { background: linear-gradient(135deg, #F59E0B 0%, #fbbf24 100%); }
+  .grad-sky { background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%); }
+
+  /* Animations */
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in-up { animation: fade-in-up 0.4s ease-out forwards; }
+
+  @keyframes slide-in {
+    from { opacity: 0; transform: translateX(-8px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .animate-slide-in { animation: slide-in 0.3s ease-out forwards; }
+
+  /* Glass effect */
+  .glass {
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.85);
+  }
+}

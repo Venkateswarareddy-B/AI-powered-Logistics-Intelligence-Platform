@@ -1,0 +1,8 @@
+# ============================================================
+# Development/test dependencies
+# ------------------------------------------------------------
+# Installed into the same virtualenv as requirements.txt.
+# Pinned to the versions verified on the local interpreter.
+# pytest-asyncio is added in Phase 10 (async API tests).
+# ============================================================
+pytest==9.2.0
