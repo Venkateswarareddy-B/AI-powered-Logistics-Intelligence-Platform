@@ -516,3 +516,5 @@ AI-Powered Logistics Intelligence Platform/
 | HTTP Client | Axios | 1.7 |
 | Testing | Pytest | 9.2 |
 | Container | Docker Compose | v5 |
+
+<!-- last verified: 2026-11-07 15:47 -->
